@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: webapp-voetbalstatistieken
+    name: brakkastats
     runtime: node
     plan: free
     buildCommand: corepack enable && corepack prepare pnpm@11.19.0 --activate && pnpm install --frozen-lockfile && pnpm build
