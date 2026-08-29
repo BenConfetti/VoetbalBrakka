@@ -15,4 +15,6 @@ export function proxy(request: NextRequest) {
   }
   return new NextResponse('Inloggen vereist', {status:401,headers:{'WWW-Authenticate':'Basic realm="Voetbalstatistieken"'}});
 }
-export const config = {matcher:['/((?!_next/static|_next/image|favicon.ico|og.png).*)']};
+export const config = {
+  matcher: ['/((?!api/health|_next/static|_next/image|favicon.ico|og.png).*)'],
+};
