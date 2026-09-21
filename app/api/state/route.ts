@@ -56,7 +56,7 @@ export async function GET(request: Request) {
       const [current, versions] = await Promise.all([
         pool.query('SELECT revision, updated_at FROM app_states WHERE user_id = $1', [sharedStateId]),
         pool.query(`SELECT id, revision, created_at FROM app_state_versions
-          WHERE user_id = $1 ORDER BY created_at DESC, id DESC LIMIT 5`, [sharedStateId]),
+          WHERE user_id = $1 ORDER BY created_at DESC, id DESC LIMIT 10`, [sharedStateId]),
       ]);
       return Response.json({
         current: current.rows[0] ? { revision: current.rows[0].revision, createdAt: current.rows[0].updated_at } : null,
@@ -89,7 +89,7 @@ export async function PUT(request: Request) {
       ON CONFLICT(user_id) DO UPDATE SET state_json = EXCLUDED.state_json, revision = app_states.revision + 1, updated_at = NOW()
       RETURNING revision, updated_at`, [sharedStateId, JSON.stringify(body.state)]);
     await client.query(`DELETE FROM app_state_versions WHERE user_id = $1 AND id NOT IN
-      (SELECT id FROM app_state_versions WHERE user_id = $1 ORDER BY created_at DESC, id DESC LIMIT 5)`, [sharedStateId]);
+      (SELECT id FROM app_state_versions WHERE user_id = $1 ORDER BY created_at DESC, id DESC LIMIT 10)`, [sharedStateId]);
     await client.query('COMMIT');
     return Response.json({ ok: true, revision: result.rows[0].revision, updatedAt: result.rows[0].updated_at });
   } catch (error) {
@@ -122,7 +122,7 @@ export async function POST(request: Request) {
       revision = revision + 1, updated_at = NOW() WHERE user_id = $1
       RETURNING state_json, revision, updated_at`, [sharedStateId, JSON.stringify(target.rows[0].state_json)]);
     await client.query(`DELETE FROM app_state_versions WHERE user_id = $1 AND id NOT IN
-      (SELECT id FROM app_state_versions WHERE user_id = $1 ORDER BY created_at DESC, id DESC LIMIT 5)`, [sharedStateId]);
+      (SELECT id FROM app_state_versions WHERE user_id = $1 ORDER BY created_at DESC, id DESC LIMIT 10)`, [sharedStateId]);
     await client.query('COMMIT');
     const row = restored.rows[0];
     return Response.json({ state: row.state_json,revision: row.revision,updatedAt: row.updated_at });
