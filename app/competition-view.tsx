@@ -125,9 +125,9 @@ export function OpponentForm({ opponent, matchDate, ownName, history }: {
   }
   historicalResults.sort((a, b) => b.date.localeCompare(a.date));
 
-  return <section className={`panel ${styles.card}`}>
+  return <section className={`panel compact ${styles.opponentForm}`}>
     <div className="panel-head"><div><h2>Vorm van de tegenstander</h2></div></div>
-    <h3>Onderlinge resultaten</h3>
+    <div className={`panel-head ${styles.formHeading}`}><h3>Onderlinge resultaten</h3></div>
     {historicalResults.length ? <ul className={`${styles.formResults} ${styles.historyResults}`}>
       {historicalResults.map(({ id, date, home, goalsFor, goalsAgainst }) => <li key={id}>
         <time dateTime={date}>{historyDateFormat.format(new Date(date))}</time>
@@ -135,8 +135,9 @@ export function OpponentForm({ opponent, matchDate, ownName, history }: {
         <strong>{home ? goalsFor : goalsAgainst}–{home ? goalsAgainst : goalsFor}</strong>
       </li>)}
     </ul> : <div className="empty">Geen eerdere onderlinge resultaten bekend.</div>}
-    <h3>Recente competitie-uitslagen</h3>
-    <p>Vijf weken vóór deze wedstrijd</p>
+    <div className={`panel-head ${styles.formHeading}`}>
+      <div><h3>Recente competitie-uitslagen</h3><p>Vijf weken vóór deze wedstrijd</p></div>
+    </div>
     {recent.length ? <ul className={styles.formResults}>
       {recent.map(({ date, match: [home, goalsHome, goalsAway, away] }) => {
         const difference = (goalsHome - goalsAway) * (home === index ? 1 : -1);

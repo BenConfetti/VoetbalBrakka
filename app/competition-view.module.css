@@ -107,10 +107,33 @@
   font-weight: 500;
 }
 
+.opponentForm {
+  margin-top: 8px;
+}
+
+.opponentForm .formHeading {
+  min-height: 0;
+  background: #f7f8f9;
+}
+
+.formHeading h3 {
+  margin: 0;
+  font-size: .875rem;
+}
+
 .formResults {
   list-style: none;
-  padding: 0;
+  padding: 0 15px;
   margin: 0;
+  font-size: .875rem;
+}
+
+.formResults time {
+  color: var(--muted);
+}
+
+.formResults strong {
+  white-space: nowrap;
 }
 
 .formResults li {
@@ -149,4 +172,10 @@
 
 .historyResults li {
   grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr) auto;
+}
+
+@media (max-width: 640px) {
+  .formResults {
+    padding-inline: 9px;
+  }
 }
