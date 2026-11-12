@@ -106,3 +106,47 @@
 .standings tbody th {
   font-weight: 500;
 }
+
+.formResults {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.formResults li {
+  display: grid;
+  grid-template-columns: 1.5rem 3.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.formResults li:last-child {
+  border-bottom: 0;
+}
+
+.formIcon {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #edf2f6;
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.win {
+  background: #ddf4e5;
+  color: #166534;
+}
+
+.loss {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.historyResults li {
+  grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr) auto;
+}
