@@ -83,7 +83,10 @@ const columns = [
 ] as const;
 
 function teamKey(name: string) {
-  return name.toLowerCase().replace(/\bjo(?=\d)/g, 'o').replace(/[\s.'’\-]/g, '');
+  return name.toLowerCase()
+    .replace(/\bjo(?=\d)/g, 'o')
+    .replace(/[\s.'’\-]/g, '')
+    .replace(/^juliana31(?=o\d)/, 'juliana');
 }
 
 type HeadToHead = { id: string; date: string; home: boolean; goalsFor: number; goalsAgainst: number };
