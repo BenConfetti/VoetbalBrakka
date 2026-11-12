@@ -125,25 +125,25 @@ export function OpponentForm({ opponent, matchDate, ownName, history }: {
   }
   historicalResults.sort((a, b) => b.date.localeCompare(a.date));
 
-  return <section className={`panel compact ${styles.opponentForm}`}>
+  return <section className="panel compact opponent-form">
     <div className="panel-head"><div><h2>Vorm van de tegenstander</h2></div></div>
-    <div className={`panel-head ${styles.formHeading}`}><h3>Onderlinge resultaten</h3></div>
-    {historicalResults.length ? <ul className={`${styles.formResults} ${styles.historyResults}`}>
+    <div className="panel-head opponent-form-heading"><h3>Onderlinge resultaten</h3></div>
+    {historicalResults.length ? <ul className="opponent-form-results opponent-form-history">
       {historicalResults.map(({ id, date, home, goalsFor, goalsAgainst }) => <li key={id}>
         <time dateTime={date}>{historyDateFormat.format(new Date(date))}</time>
         <span>{home ? ownName : opponentName} – {home ? opponentName : ownName}</span>
         <strong>{home ? goalsFor : goalsAgainst}–{home ? goalsAgainst : goalsFor}</strong>
       </li>)}
     </ul> : <div className="empty">Geen eerdere onderlinge resultaten bekend.</div>}
-    <div className={`panel-head ${styles.formHeading}`}>
+    <div className="panel-head opponent-form-heading">
       <div><h3>Recente competitie-uitslagen</h3><p>Vijf weken vóór deze wedstrijd</p></div>
     </div>
-    {recent.length ? <ul className={styles.formResults}>
+    {recent.length ? <ul className="opponent-form-results">
       {recent.map(({ date, match: [home, goalsHome, goalsAway, away] }) => {
         const difference = (goalsHome - goalsAway) * (home === index ? 1 : -1);
         const outcome = difference > 0 ? 'Gewonnen' : difference < 0 ? 'Verloren' : 'Gelijkgespeeld';
         return <li key={`${date}-${home}-${away}`}>
-          <span className={`${styles.formIcon} ${difference > 0 ? styles.win : difference < 0 ? styles.loss : ''}`}
+          <span className={`opponent-form-icon ${difference > 0 ? 'opponent-form-win' : difference < 0 ? 'opponent-form-loss' : ''}`}
             role="img" aria-label={outcome} title={outcome}>{difference > 0 ? '✓' : difference < 0 ? '×' : '='}</span>
           <time dateTime={date}>{dateFormat.format(new Date(date))}</time>
           <span>{teams[home]} – {teams[away]}</span>
