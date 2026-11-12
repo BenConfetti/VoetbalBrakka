@@ -221,12 +221,17 @@ export default function CompetitionView({ opponents, ownTeam, savedMatches, onOp
             const isHome = home === ownIndex;
             const ownResult = isHome || away === ownIndex;
             const opponentName = displayedTeams[isHome ? away : home];
-            const linkedMatches = ownResult ? savedMatches.filter(match =>
+            const candidates = ownResult ? savedMatches.filter(match =>
               match.date === date && match.location === (isHome ? 'home' : 'away') &&
-              (match.matchType ?? 'competition') === 'competition' &&
-              opponents.some(opponent => opponent.id === match.opponentId &&
-                teamKey(opponent.club + ' ' + opponent.team) === teamKey(opponentName))
+              (match.matchType ?? 'competition') === 'competition'
             ) : [];
+            const opponentKey = teamKey(opponentName);
+            const matchingCandidates = (normalize: (key: string) => string) => candidates.filter(match =>
+              opponents.some(opponent => opponent.id === match.opponentId &&
+                normalize(teamKey(opponent.club + ' ' + opponent.team)) === normalize(opponentKey))
+            );
+            const exactMatches = matchingCandidates(key => key);
+            const linkedMatches = exactMatches.length ? exactMatches : matchingCandidates(key => key.replace(/(\d)jm$/, '$1'));
             const linkedMatch = linkedMatches.length === 1 ? linkedMatches[0] : undefined;
             const result = <>
               {renderTeam(home)}<strong className={styles.score}>{goalsHome}–{goalsAway}</strong>{renderTeam(away)}
