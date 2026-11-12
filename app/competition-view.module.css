@@ -1,0 +1,108 @@
+.card {
+  margin-top: 16px;
+}
+
+.team {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.team img {
+  flex: none;
+  object-fit: contain;
+}
+
+.ownTeam {
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.results li {
+  border-bottom: 1px solid var(--line);
+}
+
+.resultRow,
+.resultLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(8px, 2vw, 20px);
+  padding: 10px 0;
+  width: 100%;
+}
+
+.resultLink {
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+}
+
+.resultLink:hover,
+.resultLink:focus-visible {
+  background: #edf2f6;
+}
+
+.resultLink .score {
+  text-decoration: underline;
+}
+
+.results li:last-child {
+  border-bottom: 0;
+}
+
+.resultRow > :first-child,
+.resultLink > :first-child {
+  justify-self: end;
+  text-align: right;
+}
+
+.score {
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 8px;
+  color: var(--navy);
+  background: #edf2f6;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.standings {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.standings th,
+.standings td {
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+}
+
+.standings thead th:nth-child(2),
+.standings tbody th {
+  text-align: left;
+  white-space: nowrap;
+}
+
+.standings thead {
+  color: var(--navy);
+  background: #edf2f6;
+}
+
+.standings tbody th {
+  font-weight: 500;
+}
